@@ -1,20 +1,53 @@
-﻿// Problem C – Wielokąt.cpp : Ten plik zawiera funkcję „main”. W nim rozpoczyna się i kończy wykonywanie programu.
-//
+﻿#include <iostream>
+#include <vector>
+#include <algorithm>
 
-#include <iostream>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+struct Point {
+    long long x, y;
+};
+int gcd(int a, int b) {
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+    return a;
+}
+// Funkcja obliczająca liczbę punktów kratowych wewnątrz wielokąta
+long long countLatticePoints(const vector<Point>& polygon) {
+    // Inicjalizujemy wartości zgodnie z algorytmem Picka
+    long long I = 0; // Liczba wierzchołków wewnątrz wielokąta
+    long long B = polygon.size(); // Liczba wierzchołków na granicy wielokąta
+
+    // Iterujemy przez wierzchołki wielokąta
+    for (size_t i = 0; i < polygon.size(); ++i) {
+        auto p1 = polygon[i];
+        auto p2 = polygon[(i + 1) % polygon.size()];
+
+        auto dx = abs(p2.x - p1.x);
+        auto dy = abs(p2.y - p1.y);
+        auto gcd1 = gcd(dx, dy);
+
+        // Dodajemy liczbę punktów kratowych na aktualnej krawędzi wielokąta
+        I += gcd1 - 1;
+    }
+
+    // Zwracamy liczbę punktów kratowych wewnątrz wielokąta
+    return I;
 }
 
-// Uruchomienie programu: Ctrl + F5 lub menu Debugowanie > Uruchom bez debugowania
-// Debugowanie programu: F5 lub menu Debugowanie > Rozpocznij debugowanie
+int main() {
+    int n;
+    cin >> n;
 
-// Porady dotyczące rozpoczynania pracy:
-//   1. Użyj okna Eksploratora rozwiązań, aby dodać pliki i zarządzać nimi
-//   2. Użyj okna programu Team Explorer, aby nawiązać połączenie z kontrolą źródła
-//   3. Użyj okna Dane wyjściowe, aby sprawdzić dane wyjściowe kompilacji i inne komunikaty
-//   4. Użyj okna Lista błędów, aby zobaczyć błędy
-//   5. Wybierz pozycję Projekt > Dodaj nowy element, aby utworzyć nowe pliki kodu, lub wybierz pozycję Projekt > Dodaj istniejący element, aby dodać istniejące pliku kodu do projektu
-//   6. Aby w przyszłości ponownie otworzyć ten projekt, przejdź do pozycji Plik > Otwórz > Projekt i wybierz plik sln
+    vector<Point> polygon(n);
+    for (int i = 0; i < n; ++i) {
+        cin >> polygon[i].x >> polygon[i].y;
+    }
+
+    cout << countLatticePoints(polygon) << endl;
+
+    return 0;
+}

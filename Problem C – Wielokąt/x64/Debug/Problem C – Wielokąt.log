@@ -1,0 +1,4 @@
+﻿  Problem C – Wielokąt.cpp
+C:\Users\Krzysiek\source\repos\Problem C – Wielokąt\Problem C – Wielokąt\Problem C – Wielokąt.cpp(31,29): warning C4244: "argument": konwersja z "__int64" do "int", możliwa utrata danych
+C:\Users\Krzysiek\source\repos\Problem C – Wielokąt\Problem C – Wielokąt\Problem C – Wielokąt.cpp(31,25): warning C4244: "argument": konwersja z "__int64" do "int", możliwa utrata danych
+  Problem C – Wielokąt.vcxproj -> C:\Users\Krzysiek\source\repos\Problem C – Wielokąt\x64\Debug\Problem C – Wielokąt.exe
